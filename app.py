@@ -1,6 +1,8 @@
+print(genai)
 import os
 from flask import Flask, request, jsonify
 from google.generativeai import GenerativeModel
+import google.generativeai as genai
 
 genai.configure(api_key=os.getenv("API_KEY"))
 
