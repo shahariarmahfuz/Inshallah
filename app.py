@@ -8,13 +8,13 @@ app = Flask(__name__)
 
 # Gemini Pro মডেল কনফিগারেশন:
 config = {
-    'temperature': 0.7,      # উত্তরের ক্রিয়েটিভিটি নিয়ন্ত্রণ করে (0 - 1)
-    'top_k': 40,             # উত্তর জেনারেট করার সময় বিবেচনা করার শব্দের সংখ্যা
-    'top_p': 0.95,            # উত্তর জেনারেট করার সময় সম্ভাব্যতা বণ্টন নিয়ন্ত্রণ করে
-    'max_output_tokens': 800  # উত্তরের সর্বোচ্চ দৈর্ঘ্য
+    'temperature': 0.7,
+    'top_k': 40,
+    'top_p': 0.95,
+    'max_output_tokens': 800
 }
 
-# নিরাপত্তা সেটিংস: (ক্ষতিকর কন্টেন্ট প্রতিরোধ)
+# নিরাপত্তা সেটিংস:
 safety_settings = [
     {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
     {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
@@ -43,5 +43,6 @@ def generate_response():
 
 # অ্যাপ্লিকেশন চালু:
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 8080))
-    app.run(host='0.0.0.0', port=port)
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=8080)
+    
